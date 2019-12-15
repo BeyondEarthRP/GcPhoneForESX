@@ -141,7 +141,7 @@ Citizen.CreateThread(function()
             DisableControlAction(0, 263, true) -- key:R	gamepad:B
             DisableControlAction(0, 140, true) -- key:R	gamepad:B
             --disable doors locking/unlocking
-            DisableControlAction(0, 27, true)  -- ARROW UP / SCROLLWHEEL BUTTON (PRESS)	DPAD UP
+            --DisableControlAction(0, 27, true)  -- ARROW UP / SCROLLWHEEL BUTTON (PRESS)	DPAD UP
             DisableControlAction(0, 42, true)  -- ]    	DPAD UP
             DisableControlAction(0, 19, true)  -- ]    	DPAD DOWN
             --fixing DPAD left causing radio to change
@@ -159,7 +159,7 @@ Citizen.CreateThread(function()
         if not isDead then
             if IsControlJustPressed(0, KeyOpenClose) or IsDisabledControlJustPressed(0, KeyOpenClose) then
                 keypressTimer = 0
-                while IsControlPressed(0, KeyOpenClose) do
+                while IsControlPressed(0, KeyOpenClose) or IsDisabledControlPressed(0, KeyOpenClose) do
                     Citizen.Wait(5)
                     keypressTimer = keypressTimer + 5
                     if keypressTimer > keypressThreshold then
