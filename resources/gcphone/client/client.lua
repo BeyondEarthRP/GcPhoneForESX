@@ -143,6 +143,7 @@ Citizen.CreateThread(function()
             --disable doors locking/unlocking
             DisableControlAction(0, 27, true)  -- ARROW UP / SCROLLWHEEL BUTTON (PRESS)	DPAD UP
             DisableControlAction(0, 42, true)  -- ]    	DPAD UP
+            DisableControlAction(0, 19, true)  -- ]    	DPAD DOWN
             --fixing DPAD left causing radio to change
             DisableControlAction(0, 52, true)  -- 	Q	   DPAD LEFT
             DisableControlAction(0, 85, true)  -- 	Q	   DPAD LEFT
@@ -155,15 +156,17 @@ Citizen.CreateThread(function()
             end
         end
         --This bit was added by Jay (hold DOWN on gamepad DPAD for 2ish seconds to open the menu)
-        if IsControlJustPressed(0, KeyOpenClose) and not isDead then
-            keypressTimer = 0
-            while IsControlPressed(0, KeyOpenClose) do
-                Citizen.Wait(5)
-                keypressTimer = keypressTimer + 5
-                if keypressTimer > keypressThreshold then
-                    -- keypressTimer > keypressThreshold (this is the check for holding the button long enough)
-                    TooglePhone()
-                    break
+        if not isDead then
+            if IsControlJustPressed(0, KeyOpenClose) or IsDisabledControlJustPressed(0, KeyOpenClose) then
+                keypressTimer = 0
+                while IsControlPressed(0, KeyOpenClose) do
+                    Citizen.Wait(5)
+                    keypressTimer = keypressTimer + 5
+                    if keypressTimer > keypressThreshold then
+                        -- keypressTimer > keypressThreshold (this is the check for holding the button long enough)
+                        TooglePhone()
+                        break
+                    end
                 end
             end
         end
